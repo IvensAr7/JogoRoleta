@@ -4,7 +4,10 @@ import os
 
 
 def limpar_tela():
-    os.system('cls')
+    if os.name == 'nt':
+        os.system('cls')
+    else:
+        os.system('clear')
 
 
 class C:
