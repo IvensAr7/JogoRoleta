@@ -4,10 +4,7 @@ import os
 
 
 def limpar_tela():
-    if os.name == 'nt':
-        os.system('cls')
-    else:
-        os.system('clear')
+    os.system("cls" if os.name == "nt" else "clear")
 
 
 class C:
@@ -23,8 +20,8 @@ class C:
         return f"{cor}{texto}{C.RESET}"
 
     # INPUT COLORIDO
-    def input(msg, cor):          # Ativa a cor ANTES do input
-        resposta = input(f"{msg}{cor}")                      # O que for digitado sai colorido
+    def input(msg, cor):                            # Ativa a cor ANTES do input
+        resposta = input(f"{msg}{cor}")             # O que for digitado sai colorido
         print(C.RESET, end='', flush=True)          # Reseta cor após digitação
         return resposta
 
@@ -46,6 +43,9 @@ def regras():
         - Se acertar um número que apareça ao menos uma vez nos três: {C.P('2x', C.Y)}
         - Se o número aparecer duas vezes: {C.P('6x', C.Y)}
         - Se aparecer três vezes: {C.P('10x', C.Y)}""")
+
+
+# def escrever()
 
 
 def options():
@@ -74,12 +74,14 @@ def aposta(pontos):
         try:
             valor = int(C.input(msg, C.Y))
         except ValueError:
-            print(f"{C.P("[ ! ] Esse valor é inválido", C.R)}")
+            print(f"{C.P('[ ! ] Esse valor é inválido', C.R)}")
             continue
         if valor > pontos:
             print(f"Acho que você não tem tudo isso, ganhe mais {valor - pontos} que você pode apostar isso.")
         elif valor <= 0:
             print("Você achava mesmo que ia dar certo?")
+        elif valor < (20/100) * pontos:
+            print(f"Vai apostar SÓ {valor} ??? Tu tem {pontos} se liga")
         else:
             break
     return valor
@@ -115,7 +117,7 @@ def roulete(escolha):
         clock += 0.01
         print("\033[F\033[K", end="")
         print("\033[F\033[K", end="")
-        print(f"ROLETA {regra}: \n {c1}{s1} : {c2}{s2} : {c3}{s3} \n", end="\r")
+        print(f"ROLETA {regra}: \n {c1}{s1} : {c2}{s2} : {c3}{s3} \n", end="\r") # MAIS UM NUM
         sleep(clock)
     print("\033[m")
     return int(s1), int(s2), int(s3)
